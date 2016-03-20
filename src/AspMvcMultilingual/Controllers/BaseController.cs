@@ -6,29 +6,22 @@ namespace AspMvcMultilingual.Controllers
 {
     public abstract class BaseController : Controller
     {
-        //public string CurrentLangCode { get; protected set; }
-
-        //public Language CurrentLang { get; protected set; }
+        public string CurrentLanguageCode { get; protected set; }
 
         protected BaseController()
         {
-            /*if (requestContext.HttpContext.Request.Url != null)
+            if (ActionContext.RouteData?.Values["lang"] != null && ActionContext.RouteData.Values["lang"] as string != "null")
             {
-                HostName = requestContext.HttpContext.Request.Url.Authority;
-            }*/
+                CurrentLanguageCode = ActionContext.RouteData.Values["lang"] as string;
+                if (CurrentLanguageCode != null)
+                {
+                    var ci = new CultureInfo(CurrentLanguageCode);
+                    //Thread.CurrentThread.CurrentUICulture = ci;
+                    //Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(ci.Name);
 
-            var h = Request.
-
-            if (RequestContext.RouteData.Values["lang"] != null && requestContext.RouteData.Values["lang"] as string != "null")
-            {
-                CurrentLangCode = requestContext.RouteData.Values["lang"] as string;
-                CurrentLang = Repository.Languages.FirstOrDefault(p => p.Code == CurrentLangCode);
-
-                var ci = new CultureInfo(CurrentLangCode);
-                Thread.CurrentThread.CurrentUICulture = ci;
-                Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(ci.Name);
+                    //CultureInfo.CurrentCulture = new CultureInfo(CurrentLanguageCode);
+                }
             }
-            //base.Initialize(requestContext);
         }
     }
 }

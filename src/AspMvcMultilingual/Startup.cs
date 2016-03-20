@@ -19,7 +19,7 @@ namespace AspMvcMultilingual
             {
                 routes.MapRoute(
                     name: "lang",
-                    template: "{lang}/{controller=Home}/{action=Index}/{id?}",
+                    template: "{lang}/{controller}/{action}/{id?}",
                     defaults: new { controller = "Home", action = "Index" },
                     constraints: new { lang = @"ru|en"});
 
